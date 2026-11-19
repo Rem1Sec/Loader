@@ -61,9 +61,11 @@ local current = byId[game.PlaceId]
 
 local function buildLoaderUI()
 	local viewport = workspace.CurrentCamera and workspace.CurrentCamera.ViewportSize or Vector2.new(1024, 768)
-local width = math.min(780, viewport.X - 24)
-local height = math.min(500, viewport.Y - 24)
-local win = lib:window({ title = "yall holy", bind = "LeftControl", size = Vector2.new(width, height), side = math.min(170, math.max(124, math.floor(width * 0.22))) })
+	local phone = lib.mobile and true or false
+	local width = phone and math.min(math.max(280, math.floor(viewport.X * 0.94)), 680) or math.min(780, viewport.X - 24)
+	local height = phone and math.min(math.max(240, math.floor(viewport.Y * 0.8)), 560) or math.min(500, viewport.Y - 24)
+	local side = phone and math.clamp(math.floor(width * 0.30), 110, 150) or math.min(170, math.max(124, math.floor(width * 0.22)))
+	local win = lib:window({ title = "yall holy", bind = "LeftControl", size = Vector2.new(width, height), side = side })
 loader.window = win
 local tab = win:tab({ name = "Loader", icon = "gamepad-2", tip = "all games" })
 local pg = tab._pg
